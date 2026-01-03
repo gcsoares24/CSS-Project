@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox fx:controller="pt.ul.fc.css.javafx.controller.StationDetailsController"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10" alignment="CENTER" prefWidth="500" prefHeight="500">
+
+    <children>
+        <Label text="Station Details" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <VBox spacing="5" alignment="CENTER_LEFT" style="-fx-padding: 0 20 0 20;">
+            <HBox spacing="10"><Label text="Name:" style="-fx-font-weight: bold;"/><Label fx:id="lblName" text="..."/></HBox>
+            <HBox spacing="10"><Label text="Location:" style="-fx-font-weight: bold;"/><Label fx:id="lblCoords" text="..."/></HBox>
+            <HBox spacing="10"><Label text="Capacity:" style="-fx-font-weight: bold;"/><Label fx:id="lblCapacity" text="..."/></HBox>
+        </VBox>
+
+        <Label text="Bicycles Available Here:" style="-fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+
+        <TableView fx:id="bikeTable" prefWidth="450" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colBikeId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colBikeModel" text="Model" prefWidth="200"/>
+                <TableColumn fx:id="colBikeState" text="State" prefWidth="150"/>
+            </columns>
+            <placeholder>
+                <Label text="No bikes at this station."/>
+            </placeholder>
+        </TableView>
+
+        <Button text="Back" onAction="#backToList" prefWidth="200" />
+    </children>
+</VBox>

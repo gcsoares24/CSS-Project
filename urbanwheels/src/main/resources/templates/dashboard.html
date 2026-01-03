@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${appName} + ' — Home'">UrbanWheels — Home</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 th:text="${appName}">UrbanWheels</h1>
+      <div class="user-info">
+        <span th:text="'Hello, ' + ${username}">Hello, Admin</span>
+        <a th:href="@{/web/logout}" th:if="${username != null}">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="lead">Shared Bike Management — admin dashboard.</p>
+
+    <section class="cards" role="navigation" aria-label="Admin actions">
+      <a class="card" th:href="@{/web/stations}" aria-label="Stations">
+        <span class="icon">📍</span>
+        <span class="label">Stations</span>
+        <span class="meta" th:text="${stationsCount} + ' stations'">—</span>
+      </a>
+
+      <a class="card" th:href="@{/web/bikes}" aria-label="Bikes">
+        <span class="icon">🚲</span>
+        <span class="label">Bikes</span>
+        <span class="meta" th:text="${bikesCount} + ' bikes'">—</span>
+      </a>
+
+      <a class="card" th:href="@{/web/users}" aria-label="Users">
+        <span class="icon">👥</span>
+        <span class="label">Users</span>
+        <span class="meta" th:text="${usersCount} + ' users'">—</span>
+      </a>
+
+      <a class="card" th:href="@{/web/maintenance}" aria-label="Maintenance">
+        <span class="icon">🔧</span>
+        <span class="label">Maintenance</span>
+      </a>
+    </section>
+
+
+
+    <section class="quick-actions">
+      <h2>Quick Actions</h2>
+      <ul>
+        <li><a th:href="@{/web/stations/new}">Register new station</a></li>
+        <li><a th:href="@{/web/bikes/new}">Add bike</a></li>
+        <li><a th:href="@{/web/users}">Register user</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> <span th:text="${appName}">UrbanWheels</span> — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${appName} + ' — Users'">UrbanWheels — Users</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<script>
+  function toggleSubscription() {
+    const userType = document.getElementById("userType").value;
+    const subscriptionDiv = document.getElementById("subscriptionField");
+    const subscriptionSelect = document.getElementById("subscriptionType");
+
+    if (userType === "CLIENT") {
+      subscriptionDiv.style.display = "block";
+      subscriptionSelect.required = true;
+    } else {
+      subscriptionDiv.style.display = "none";
+      subscriptionSelect.required = false;
+      subscriptionSelect.value = "";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", toggleSubscription);
+</script>
+
+<body>
+<header class="site-header">
+  <div class="container">
+    <h1 th:text="${appName}">UrbanWheels</h1>
+    <nav>
+      <a th:href="@{/web/dashboard}">Home</a>
+      <a th:href="@{/web/stations}">Stations</a>
+      <a th:href="@{/web/users}">Users</a>
+      <a th:href="@{/web/bikes}">Bikes</a>
+      <a th:href="@{/web/logout}">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h2>User Registration</h2>
+
+  <form method="post" th:action="@{/web/users}" th:object="${userForm}">
+
+    <label>Name</label>
+    <input type="text" th:field="*{name}" required />
+
+    <label>Email</label>
+    <input type="email" th:field="*{email}" required />
+
+    <label>User Type</label>
+    <select th:field="*{userType}" id="userType" onchange="toggleSubscription()">
+      <option value="CLIENT">Client</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+    <div id="subscriptionField">
+      <label>Subscription</label>
+      <select th:field="*{subscriptionType}" id="subscriptionType">
+        <option value="">-- Select subscription --</option>
+        <option th:each="s : ${subscriptions}"
+                th:value="${s.name}"
+                th:text="${s.name}">
+        </option>
+      </select>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <hr />
+
+  <h2>User List</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>User Type</th>
+      <th>Subscription Type</th>
+      <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+      <td colspan="6">No users found.</td>
+    </tr>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.subscriptionType == 'ADMIN_ACCOUNT' ? 'Admin' : 'Client'}"></td>
+      <td th:text="${user.subscriptionType == 'ADMIN_ACCOUNT' ? '—' : user.subscriptionType}"></td>
+      <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>
+      &copy;
+      <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span>
+      UrbanWheels — ConcreteCast Solutions
+    </small>
+  </div>
+</footer>
+</body>
+</html>

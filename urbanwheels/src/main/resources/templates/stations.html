@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanWheels — Stations</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+        <h1 th:text="${appName}">UrbanWheels</h1>
+        <nav>
+            <a th:href="@{/web/dashboard}">Home</a>
+            <a th:href="@{/web/stations}" class="active">Stations</a>
+            <a th:href="@{/web/users}">Users</a>
+            <a th:href="@{/web/bikes}">Bikes</a>
+            <a th:href="@{/web/logout}">Logout</a>
+        </nav>
+        </div>
+    </header>
+
+    <main class="container">        
+        <h2>Station List</h2>
+
+        <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Capacity</th>
+                <th>Location (Lat, Lon)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stations.empty}">
+                <td colspan="4">No stations found.</td>
+                </tr>
+                <tr th:each="station : ${stations}">
+                <td th:text="${station.id}"></td>
+                <td>
+                    <a th:href="@{/web/stations/{id}(id=${station.id})}" 
+                    th:text="${station.name}"
+                    style="text-decoration: none; color: #007bff; font-weight: bold;">
+                    Station Name
+                    </a>
+                </td>                <td th:text="${station.maxDocks}"></td>
+                <td th:text="${station.lat} + ', ' + ${station.lon}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/web/stations/new}" class="button">+ New Station</a>
+
+    </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UrbanWheels — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

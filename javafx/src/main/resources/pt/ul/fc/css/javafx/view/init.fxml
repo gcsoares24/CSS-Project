@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pt.ul.fc.css.javafx.controller.InitController"
+      spacing="10"
+      alignment="CENTER"
+      prefWidth="300"
+      prefHeight="220">
+
+    <!-- K: List all stations -->
+    <Button text="List Stations" onAction="#openStations"/>
+
+    <!-- M: Rent a bicycle -->
+    <Button text="Rent Bicycle" onAction="#openRentBike"/>
+
+    <!-- N: Cancel reservation -->
+    <Button text="Cancel Reservation" onAction="#openCancelBike"/>
+
+    <!-- O: Pick up bicycle -->
+    <Button text="Pick Up Bicycle" onAction="#openPickupBike"/>
+
+    <!-- P: Return bicycle -->
+    <Button text="Return Bicycle" onAction="#openReturnBike"/>
+
+    <!-- Q: User details -->
+    <Button text="My Account / Trips" onAction="#openUserDetails"/>
+
+    <!-- Logout -->
+    <Button text="Logout" onAction="#doLogout"/>
+
+</VBox>

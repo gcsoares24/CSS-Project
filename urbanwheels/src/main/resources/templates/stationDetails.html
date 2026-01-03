@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="'Details - ' + ${station.name}">Station Details</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 th:text="${appName}">UrbanWheels</h1>
+      <nav>
+        <a th:href="@{/web/dashboard}">Home</a>
+        <a th:href="@{/web/stations}">Stations</a>
+        <a th:href="@{/web/users}">Users</a>
+        <a th:href="@{/web/bikes}">Bikes</a>
+        <a th:href="@{/web/logout}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 th:text="${station.name}">Station Name</h2>
+
+    <div style="margin-bottom: 20px;">
+        <p><strong>ID:</strong> <span th:text="${station.id}"></span></p>
+        <p><strong>Coordinates:</strong> <span th:text="${station.lat} + ', ' + ${station.lon}"></span></p>
+        <p><strong>Capacity:</strong> <span th:text="${station.maxDocks}"></span> docks</p>
+        <p><strong>Bikes Available:</strong> <span th:text="${station.bikes != null ? station.bikes.size() : 0}">0</span></p>
+    </div>
+
+    <hr>
+
+    <h3>Bikes at this Station</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Bike ID</th>
+          <th>Model</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${station.bikes == null || station.bikes.empty}">
+          <td colspan="3">No bikes currently docked here.</td>
+        </tr>
+
+        <tr th:each="bike : ${station.bikes}">
+          <td th:text="${bike.id}"></td>
+          <td th:text="${bike.model}"></td>
+          <td th:text="${bike.state != null ? bike.state.description : 'Unknown'}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+    <p>
+        <a th:href="@{/web/stations}">Back to Station List</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; 2025 UrbanWheels — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanWheels — New Station</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 th:text="${appName}">UrbanWheels</h1>
+      <nav>
+        <a th:href="@{/web/dashboard}">Home</a>
+        <a th:href="@{/web/stations}">Stations</a>
+        <a th:href="@{/web/users}">Users</a>
+        <a th:href="@{/web/bikes}">Bikes</a>
+        <a th:href="@{/web/logout}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Register New Station</h2>
+
+    <form th:action="@{/web/stations/new}" th:object="${stationForm}" method="post">
+        
+        <div class="form-group">
+            <label>Station Name:</label>
+            <input type="text" th:field="*{name}" required placeholder="Ex: Campo Grande"/>
+        </div>
+
+        <div class="form-group">
+            <label>Latitude:</label>
+            <input type="number" step="any" th:field="*{lat}" required/>
+        </div>
+
+        <div class="form-group">
+            <label>Longitude:</label>
+            <input type="number" step="any" th:field="*{lon}" required/>
+        </div>
+
+        <div class="form-group">
+            <label>Capacity (Docks):</label>
+            <input type="number" id="maxDocks" th:field="*{maxDocks}" required min="1"/>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit">Create Station</button>
+            <a href="javascript:history.back()" style="margin-left: 15px;">Cancel</a>
+        </div>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UrbanWheels — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

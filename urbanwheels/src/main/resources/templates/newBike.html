@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${appName} + ' — New Bike'">UrbanWheels — New Bike</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 th:text="${appName}">UrbanWheels</h1>
+      <nav>
+        <a th:href="@{/web/dashboard}">Home</a>
+        <a th:href="@{/web/stations}">Stations</a>
+        <a th:href="@{/web/users}">Users</a>
+        <a th:href="@{/web/bikes}">Bikes</a>
+        <a th:href="@{/web/logout}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Add New Bike</h2>
+
+    <form th:action="@{/web/bikes/new}" th:object="${bikeForm}" method="post">
+      <label for="model">Model:</label>
+      <input type="text" id="model" th:field="*{model}" required>
+
+      <label for="station">Station:</label>
+      <select id="station" th:field="*{stationId}" required>
+        <option th:each="station : ${stations}" 
+                th:value="${station.id}" 
+                th:text="${station.name}">Station Name</option>
+      </select>
+
+      <button type="submit">Create Bike</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UrbanWheels — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

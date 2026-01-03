@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error — UrbanWheels</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f8f8; color: #333; }
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1 { color: #c0392b; }
+        p { margin: 10px 0; }
+        a { color: #2980b9; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>An Error Occurred</h1>
+
+        <p><strong>Status:</strong> <span th:text="${status}">404</span></p>
+        <p><strong>Message:</strong> <span th:text="${errorMessage}">Resource not found</span></p>
+        <p><strong>Timestamp:</strong> <span th:text="${timestamp}">2025-12-07T00:00:00</span></p>
+
+        <hr>
+
+        <p>
+            <a href="javascript:history.back()">Go Back</a>
+        </p>
+
+    </div>
+</body>
+</html>

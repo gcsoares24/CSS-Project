@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${appName} + ' — Bikes'">UrbanWheels — Bikes</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 th:text="${appName}">UrbanWheels</h1>
+      <nav>
+        <a th:href="@{/web/dashboard}">Home</a>
+        <a th:href="@{/web/stations}">Stations</a>
+        <a th:href="@{/web/users}">Users</a>
+        <a th:href="@{/web/bikes}">Bikes</a>
+        <a th:href="@{/web/logout}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Bike List</h2>
+
+    <form method="get" th:action="@{/web/bikes}">
+      <label for="state">Filter by state:</label>
+      <select name="state" id="state">
+        <option value="">All</option>
+        <option th:each="s : ${states}" 
+                th:value="${s.description}" 
+                th:text="${s.description}" 
+                th:selected="${stateFilter == s.description}">
+        </option>
+      </select>
+
+      <button type="submit">Filter</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Model</th>
+          <th>Station (ID)</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:if="${bikes.empty}">
+          <td colspan="4">No bikes found.</td>
+        </tr>
+        <tr th:each="bike : ${bikes}">
+          <td th:text="${bike.id}"></td>
+          <td th:text="${bike.model}"></td>
+          <td th:text="${bike.stationId}"></td>
+          <td th:text="${bike.state.description}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UrbanWheels — ConcreteCast Solutions</small>
+    </div>
+  </footer>
+</body>
+</html>

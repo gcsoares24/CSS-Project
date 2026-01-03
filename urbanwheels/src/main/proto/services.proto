@@ -1,0 +1,168 @@
+syntax = "proto3";
+
+option java_package = "pt.ul.fc.css.urbanwheels.grpc";
+option java_multiple_files = true;
+
+// ----------------------------------------------------
+// Serviços (Reflete a arquitetura em camadas Controller/Service)
+// ----------------------------------------------------
+service StationService {
+  rpc RegisterStation(RegisterStationRequest) returns (StationResponse); // Caso A
+  rpc ListAllStations(Empty) returns (ListStationsResponse);             // Caso B
+  rpc GetStationDetails(GetStationDetailsRequest) returns (StationDetailsResponse); // Caso C
+}
+
+service BikeService {
+  rpc AddBikeToFleet(AddBikeRequest) returns (BikeResponse);             // Caso D
+  rpc ListBikes(ListBikesRequest) returns (ListBikesResponse);           // Caso E
+  rpc UpdateBikeStatus(UpdateBikeStatusRequest) returns (BikeResponse);  // Caso F
+  rpc RegisterMaintenance(RegisterMaintenanceRequest) returns (MaintenanceResponse); // Caso G
+}
+
+service UserService {
+  rpc RegisterUser(RegisterUserRequest) returns (UserResponse); // Caso H
+  rpc ListAllUsers(Empty) returns (ListUsersResponse);          // Caso I
+  rpc GetUserDetails(GetUserDetailsRequest) returns (UserDetailsResponse); // Caso J
+}
+
+service TripService {
+  rpc CheckoutBike(CheckoutBikeRequest) returns (TripResponse); // Caso K
+  rpc CheckinBike(CheckinBikeRequest) returns (TripResponse);   // Caso L
+}
+
+// ----------------------------------------------------
+// Mensagens Comuns
+// ----------------------------------------------------
+message Empty {}
+
+// ----------------------------------------------------
+// Mensagens para StationService
+// ----------------------------------------------------
+message StationResponse {
+  int64 id = 1;
+  string name = 2;
+  string location = 3;
+  int32 capacity = 4;
+}
+
+message RegisterStationRequest {
+  string name = 1;
+  string location = 2;
+  int32 capacity = 3;
+}
+
+message ListStationsResponse {
+  repeated StationResponse stations = 1;
+}
+
+message GetStationDetailsRequest {
+  int64 station_id = 1;
+}
+
+message StationDetailsResponse {
+  StationResponse station = 1;
+  repeated BikeResponse bikes_parked = 2; // Detalhes da estação + lista de bicicletas (Caso C)
+}
+
+// ----------------------------------------------------
+// Mensagens para BikeService
+// ----------------------------------------------------
+message BikeResponse {
+  int64 id = 1;
+  string model = 2;
+  int64 status = 3;             // id status
+  int64 current_station_id = 4;  // ID da estação se DISPONIVEL
+}
+
+message AddBikeRequest {
+  string model = 1;
+  int64 initial_station_id = 2; // Associar a uma estação inicial (Caso D)
+}
+
+message ListBikesRequest {
+  string filter_status = 1; // Pode-se filtrar pelo seu estado (Caso E)
+}
+
+message ListBikesResponse {
+  repeated BikeResponse bikes = 1;
+}
+
+message UpdateBikeStatusRequest {
+  int64 bike_id = 1;
+  string new_status = 2; // Changed from BikeStatus enum to string
+}
+
+// Manutenção
+message MaintenanceResponse {
+  int64 id = 1;
+  int64 bike_id = 2;
+  string date = 3; // Formato ISO 8601
+  string description = 4;
+  double cost = 5;
+}
+
+message RegisterMaintenanceRequest {
+  int64 bike_id = 1;
+  string description = 2;
+  double cost = 3;
+}
+
+// ----------------------------------------------------
+// Mensagens para UserService
+// ----------------------------------------------------
+enum UserType {
+  TYPE_UNSPECIFIED = 0;
+  CLIENTE = 1;
+  ADMINISTRADOR = 2;
+}
+
+message UserResponse {
+  string email = 1;
+  string name = 2;
+  string subscription_type = 3; // Changed from enum to string
+  UserType user_type = 4;
+}
+
+message RegisterUserRequest {
+  string email = 1;
+  string name = 2;
+  string subscription_type = 3; // Changed from enum to string
+  UserType user_type = 4;       // Para distinguir Cliente de Administrador
+}
+
+message ListUsersResponse {
+  repeated UserResponse users = 1;
+}
+
+message GetUserDetailsRequest {
+  string user_email = 1;
+}
+
+message UserDetailsResponse {
+  UserResponse user = 1;
+  repeated TripResponse trip_history = 2; // Histórico de viagens (Caso J)
+}
+
+// ----------------------------------------------------
+// Mensagens para TripService
+// ----------------------------------------------------
+message TripResponse {
+  int64 id = 1;
+  int64 bike_id = 2;
+  string client_email = 3;
+  int64 origin_station_id = 4;
+  int64 destination_station_id = 5;
+  string start_time = 6;       // Data/hora de início
+  optional string end_time = 7; // Data/hora de fim (opcional, só presente após check-in)
+}
+
+message CheckoutBikeRequest {
+  string client_email = 1;
+  int64 bike_id = 2;
+  int64 origin_station_id = 3;
+}
+
+message CheckinBikeRequest {
+  int64 bike_id = 1;               // Pode usar o ID da bike para encontrar a viagem em curso
+  int64 destination_station_id = 2;
+}
