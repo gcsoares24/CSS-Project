@@ -1,5 +1,7 @@
 # CSS-Project: Software Systems Engineering
 
+Quick note in Portuguese: Podem consultar este mesmo README em português. Para isso, basta aceder [aqui](README_PT).
+
 ## Description
 
 **CSS-Project** is an academic project developed as part of the *Software Systems Engineering* course (*Construção de Sistemas de Software*). This project showcases the development of a modular software system with a focus on quality, efficiency, and integration. It includes two main modules—**UrbanWheels**, a bike-sharing system, and **WeatherWise**, a weather data service—both of which are integrated to enhance functionality.
