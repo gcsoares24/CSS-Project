@@ -4,7 +4,7 @@ Nota rápida em inglês: You can check this same README in English by visiting [
 
 ## Descrição
 
-**CSS-Project** é um projeto académico desenvolvido no âmbito da unidade curricular de *Engenharia de Sistemas de Software* (*Construção de Sistemas de Software*). Este projeto destaca-se pelo desenvolvimento de um sistema de software modular, com foco na qualidade, eficiência e integração. Inclui dois módulos principais—**UrbanWheels**, um sistema de partilha de bicicletas, e **WeatherWise**, um serviço de dados meteorológicos—integrados para melhorar a funcionalidade.
+**CSS-Project** é um projeto académico desenvolvido no âmbito da unidade curricular de *Construção de Sistemas de Software*. Este projeto destaca-se pelo desenvolvimento de um sistema de software modular, com foco na qualidade, eficiência e integração. Inclui dois módulos principais—**UrbanWheels**, um sistema de partilha de bicicletas, e **WeatherWise**, um serviço de dados meteorológicos—integrados para melhorar a funcionalidade.
 
 Este projeto utiliza tecnologias como Java, JavaFX, Spring Boot e REST APIs, cumprindo as melhores práticas de engenharia de software, como modularidade, arquitetura em camadas e contentorização com Docker.
 
