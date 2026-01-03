@@ -1,185 +1,182 @@
+# CSS-Project: Software Systems Engineering
+
+## Description
+
+**CSS-Project** is an academic project developed as part of the *Software Systems Engineering* course (*Construção de Sistemas de Software*). This project showcases the development of a modular software system with a focus on quality, efficiency, and integration. It includes two main modules—**UrbanWheels**, a bike-sharing system, and **WeatherWise**, a weather data service—both of which are integrated to enhance functionality.
+
+This project utilizes technologies like Java, JavaFX, Spring Boot, and REST APIs, while adhering to best practices in software engineering such as modularity, layered architecture, and containerization with Docker.
 
 ---
 
-# CSS Phase 3 – UrbanWheels
+## Modules Overview
 
-**Curso:** Construção de Sistemas de Software – Tecnologias de Informação
-**Semestre:** 2025/2026
-**Entrega:** 15/12/2025, 23:59
+### 1. **UrbanWheels**
+**UrbanWheels** is a bike-sharing system designed to manage stations, bikes, and user operations. It implements graphical user interfaces for both administrators and end users with integration to **WeatherWise** for weather-based insights.
 
-# EXTRAS, PARA DIZER NO RELATÓRIO:
-## 1.
-- **docker-compose.yml:**
+#### Features:
+- **Administrator Interface** (Web via Thymeleaf):
+  - Register and list stations and bikes.
+  - Manage bike maintenance and availability.
+  - Register and manage users.
 
-  - **Antes:**
+- **User Interface** (Desktop via JavaFX):
+  - Search for and reserve bikes.
+  - Manage reservations and usage history.
 
-      ```yaml
-      services:
-        pgserver:
-          image: postgres:latest
-          container_name: pgserver
-          volumes:
-            - postgres-data:/var/lib/postgresql
-      ```
-   - **Depois:**
+- **Integration with WeatherWise**:
+  - Fetch real-time weather data during bike reservations for informed decision-making.
 
-      ```yaml
-      pgserver:
-        build:
-          context: .
-          dockerfile: postgres.dockerfile
-        container_name: pgserver
-        volumes:
-          - postgres-data:/var/lib/postgresql/data
-      ```
-  - **Motivo:** Para garantir consistencia de dados.
-
-- **application.proprerties:**
-
-  - **Alteração:** `spring.jpa.hibernate.ddl-auto=validate` para garantir a consistência dos dados.
-
-
-
-## 1. Contexto
-
-A **ConcreteCast Solutions (CCS)** pretende implementar o **UrbanWheels**, um sistema de bicicletas partilhadas. O objetivo desta fase é construir interfaces gráficas (web e desktop) e integrar o sistema com **WeatherWise** para previsões meteorológicas.
-
-* Fases 1 e 2: backend funcional com API REST e persistência de dados.
-* Fase 3: interfaces gráficas + integração com WeatherWise + vídeo de demonstração.
+#### Use Cases:
+- Bookings are efficiently managed by updating bike statuses (`Reservada`, `Disponível`, etc.).
+- Weather data enhances operational decisions.
 
 ---
 
-## 2. Casos de Uso
+### 2. **WeatherWise**
+WeatherWise is an independent weather forecasting system. Initially built for standalone operation, it was later integrated into the UrbanWheels system to provide weather-based information.
 
-### 2.1 Interface Web (Thymeleaf)
+#### Features:
+- Real-time weather forecast based on location.
+- Historical weather data storage for analytics and prediction.
+- REST API for external integrations.
 
-Operações típicas de **administrador**:
-
-1. Login (mock: qualquer password válida)
-2. Registar nova estação
-3. Listar todas as estações
-4. Detalhes de uma estação (lista de bicicletas)
-5. Adicionar nova bicicleta à frota
-6. Listar todas as bicicletas (filtro por estado: DISPONÍVEL, EM USO, etc.)
-7. Registar manutenção de bicicleta
-8. Registar novo utilizador
-9. Listar todos os utilizadores
-
-### 2.2 Interface Desktop (JavaFX)
-
-Operações típicas de **clientes**:
-
-1. Login (mock)
-2. Listar estações
-3. Detalhes de uma estação
-4. Reservar bicicleta → estado = RESERVADA
-5. Cancelar reserva → estado = DISPONÍVEL
-6. Levantar bicicleta
-7. Entregar bicicleta
-8. Detalhes do utilizador (histórico de viagens)
-
-### 2.3 Integração de Sistemas (REST API)
-
-* Atualizar WeatherWise: criar endpoint REST que fornece previsão baseada em **localização** (lat/long) e **data**.
-* UrbanWheels: ao reservar bicicleta, chamar API do WeatherWise e exibir previsão ao utilizador.
+#### Use Cases:
+- Utilized by UrbanWheels to pull weather data dynamically for routes and reservations.
+- Enables estimation of future weather conditions based on historical data.
 
 ---
 
-## 3. Requisitos Não Funcionais
+## Technologies Used
+1. **Java**:
+   - Core programming language used for back-end logic.
+   - Focused on layered design and maintainable code structure.
 
-* Interfaces comunicam via API REST do UrbanWheels.
-* WeatherWise REST API implementada em Spring Boot.
-* Projeto **contentorizado com Docker**.
-* Vídeos de demonstração obrigatórios para cada caso de uso implementado.
-* Arquitetura em camadas: Controller, Service, Repository.
-* Controle de qualidade: pre-commit, testes.
-* Participação avaliada via commits e qualidade do código.
-* Decisões técnicas justificadas em relatório técnico.
+2. **JavaFX & Thymeleaf**:
+   - JavaFX: Desktop GUI for enhanced customer experience.
+   - Thymeleaf: Web interface for administrative tasks.
+
+3. **Spring Boot**:
+   - Used for REST API implementation in UrbanWheels and WeatherWise integration.
+   - Ensures scalability and robustness.
+
+4. **Docker**:
+   - Simplifies deployment across various environments.
+   - Ensures consistency via containerization.
+
+5. **PostgreSQL**:
+   - Used as the database for WeatherWise for storing and querying weather data.
 
 ---
 
-## 4. Tarefas da Fase 3
+## System Architecture
+The system is designed using a layered approach:
+1. **Controller Layer**: Handles user interactions and API requests.
+2. **Service Layer**: Contains core business logic.
+3. **Repository Layer**: Manages data persistence.
 
-* Implementar interface web com Thymeleaf
-* Implementar interface desktop com JavaFX
-* Atualizar WeatherWise e criar endpoint REST
-* Integrar UrbanWheels com WeatherWise (caso de uso de reserva)
-* Produzir vídeo(s) demonstrando todos os casos de uso
+Microservices architecture allows ease of scaling, with integration points relying on REST APIs between the modules.
 
 ---
 
-## 5. Entrega
+## How to Setup and Run
 
-1. Criar tag **fase3** no Git:
+### Prerequisites:
+1. **Java Development Kit (JDK)** version 17 or later.
+2. **Docker** and **Docker Compose** installed locally.
+3. **PostgreSQL** database setup for WeatherWise if running without Docker.
 
+---
+
+### Installation:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/guimbreon/CSS-Project.git
+   cd CSS-Project
+   ```
+
+2. **Run with Docker**:
+   - Navigate to the `weatherwise` directory:
+     ```bash
+     cd weatherwise
+     docker-compose up --build
+     ```
+   - Then navigate to the `urbanwheels` directory:
+     ```bash
+     cd ../urbanwheels
+     docker-compose up --build
+     ```
+
+3. **Javafx run** (Optional, after Step 2):
+   - Run the javafx module:
+     ```bash
+     cd javafx
+     mvn javafx:run
+     ```
+     ```
+
+4. Access the system:
+   - Web interface for administrators at `http://localhost:8080`.
+   - Desktop application for customers.
+
+---
+
+#### REST API Integration:
+For detailed API documentation:
+
+- **UrbanWheels**: Visit Swagger at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- **WeatherWise**: Visit Swagger at [http://localhost:8081/swagger-ui/index.html#/](http://localhost:8081/swagger-ui/index.html#/)
+
+##### Example: Fetch weather data for a location
+Example: Fetch weather data for a location.
+Request:
 ```bash
-git tag fase3
-git push origin fase3
+GET /weatherwise/api/weather?location=Lisbon
+```
+Response:
+```json
+{
+  "location": "Lisbon",
+  "temperature": 22,
+  "forecast": "Sunny"
+}
 ```
 
-2. Incluir:
+---
 
-    * Código-fonte de **UrbanWheels** e **WeatherWise**
-    * Ficheiros Docker
-    * README.md atualizado com instruções de execução + link do vídeo
-3. Garantir que todos os componentes podem ser executados pela equipa docente.
+## Documentation
+This repository includes:
+- `phase3.pdf` and `relatorio.pdf`: Detailed reports on the project phases and technical decisions.
+- Docker files for containerized deployment.
+- Complete source code for UrbanWheels and WeatherWise.
 
 ---
 
-## 6. Critérios de Avaliação (40% da nota final)
-
-### 6.1 Processo de Desenvolvimento
-
-* Frequência e granularidade dos commits
-* Qualidade das mensagens de commit
-* Funcionalidade do código
-
-### 6.2 Interfaces Gráficas
-
-* Implementação correta dos casos de uso
-* Qualidade da interface e UX
-* Comunicação correta com API REST
-
-### 6.3 Integração de Sistemas
-
-* REST API funcional no WeatherWise
-* Integração completa no UrbanWheels
-
-### 6.4 Vídeo de Demonstração
-
-* Clareza e objetividade
-* Demonstração completa dos casos de uso
-* Qualidade geral do vídeo
-
-### 6.5 Relatório Técnico
-
-* Decisões técnicas claras
-* Máximo de 2 páginas, conciso e estruturado
-
-## 7. Divisões
-
-### Guilherme Soares (fc62372)
-- E. Adicionar uma nova bicicleta a frota (TL)
-- F. Listar todas as bicicletas em todas as estações (TL)
-- G. Registar uma nova operação de manutenção para uma bicicleta (TL)
-- M. Realizar uma reserva de bicicleta (JJX)
-- N. Cancelar uma reserva de bicicleta (JJX)
-- P. Entregar uma bicicleta (JJX)
-
-### Vitória Correia (fc62211)
-- A. Realizar login (TL)
-- H. Registar um novo utilizador (TL)
-- I. Listar todos os utilizadores (TL)
-- O. Levantar uma bicicleta (JJX)
-- Q. Obter os detalhes do utilizador (JJX)
-- J. Realizar login (JJX)
-
-### Duarte Soares (fc62371)
-- B. Registar uma nova estação (TL)
-- C. Listar todas as estações (TL)
-- D. Obter os detalhes de uma estação específica (TL)
-- K. Listar todas as estações (JJX)
-- L. Obter os detalhes de uma estação específica (JJX)
-
+## Videos
+Comprehensive demonstration videos for all use cases implemented are included in the `videos/` directory.
 
 ---
+
+## Contributing
+Contributions are welcome! To contribute:
+1. Fork this repository.
+2. Create a new feature branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Submit a pull request for review.
+
+---
+
+## License
+This project is educational and adheres to the Software Systems Engineering course guidelines.
+
+---
+
+## Acknowledgments
+- **Instructor** for guidance throughout the development.
+- **Team Members** for excellent collaboration and commitment.
+- Open-source libraries and communities.
+
+---
+
+Visit the repository [here](https://github.com/guimbreon/CSS-Project) for more details.
