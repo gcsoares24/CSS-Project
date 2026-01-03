@@ -1,6 +1,6 @@
 # CSS-Project: Software Systems Engineering
 
-Quick note in Portuguese: Podem consultar este mesmo README em português. Para isso, basta aceder [aqui](README_PT).
+Quick note in Portuguese: Podem consultar este mesmo README em português. Para isso, basta aceder [aqui](README_PT.md).
 
 ## Description
 
