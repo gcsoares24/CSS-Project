@@ -92,7 +92,8 @@ A arquitetura baseada em microserviços facilita a escalabilidade, com pontos de
 ### Instalação:
 1. **Clonar o repositório**:
    ```bash
-   git clone https://github.com/guimbreon/CSS-Project.git
+   git clone https://github.com/gcsoares24
+   /CSS-Project.git
    cd CSS-Project
    ```
 
@@ -179,4 +180,4 @@ Este projeto é exclusivamente para fins educativos e segue as diretrizes da uni
 
 ---
 
-Visite o repositório [aqui](https://github.com/guimbreon/CSS-Project) para mais detalhes.
+Visite o repositório [aqui](https://github.com/gcsoares24/CSS-Project) para mais detalhes.
