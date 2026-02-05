@@ -3,7 +3,7 @@
 Quick note in Portuguese: Podem consultar este mesmo README em português. Para isso, basta aceder [aqui](README_PT.md).
 
 Project made by:
-[Guilherme Soares](https://github.com/guimbreon) && [Vitória Correia](https://github.com/vitoriateixeiracorreia)
+[Guilherme Soares](https://github.com/gcsoares24) && [Vitória Correia](https://github.com/vitoriateixeiracorreia)
 
 ## Description
 
